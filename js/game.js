@@ -334,6 +334,7 @@ class Game {
   }
 
   toMenu() {
+    this.canvas.style.pointerEvents = '';
     this.state = STATE.IDLE;
     cancelAnimationFrame(this._raf);
     this.obstacles.reset();
