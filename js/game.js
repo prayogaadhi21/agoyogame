@@ -261,21 +261,23 @@ class Game {
 
     setTimeout(() => { Audio$.play('gameover'); }, 300);
 
-    // Final render burst then show game over
+    // Tampilkan game over setelah delay cukup untuk animasi shake
+    let elapsed = 0;
     const burst = () => {
       this._render(0.016);
-      if (this.player.shakeTime > 0) { requestAnimationFrame(burst); }
-      else {
+      elapsed += 16;
+      if (elapsed < 800) {
+        requestAnimationFrame(burst);
+      } else {
         cancelAnimationFrame(this._raf);
         const isNew = Storage.updateHighScore(this.score);
-        const best  = Storage.get('highScore');
+        const best = Storage.get('highScore');
         this.ui?.showGameOver(this.score, best, isNew);
         if (isNew) this.ui?.showToast('New High Score! ' + this.score);
       }
     };
     requestAnimationFrame(burst);
   }
-
   _checkAchievements() {
     const milestones = [
       { score: 1,   id: 'first_point',   msg: 'First Point!' },
