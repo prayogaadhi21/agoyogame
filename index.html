@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Coffee Flight - AGOYO Coffee Game" />
+  <meta name="theme-color" content="#3B1F0A" />
+  <title>Coffee Flight - AGOYO</title>
+  <link rel="icon" type="image/png" href="assets/logo/agoyo-logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="loading-screen" class="screen active">
+    <div class="loading-content">
+      <img src="assets/logo/agoyo-logo.png" alt="AGOYO Logo" class="logo-img" onerror="this.style.display='none'" />
+      <div class="loading-bar-container"><div class="loading-bar" id="loading-bar"></div></div>
+      <p class="loading-text">Brewing your experience...</p>
+    </div>
+  </div>
+  <div id="menu-screen" class="screen">
+    <div class="menu-content">
+      <img src="assets/logo/agoyo-logo.png" alt="AGOYO Logo" class="logo-img" onerror="this.style.display='none'" />
+      <h1 class="game-title">Coffee Flight</h1>
+      <p class="game-subtitle">Navigate the coffee journey</p>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btn-play">Play</button>
+        <button class="btn btn-secondary" id="btn-highscore">High Score</button>
+        <button class="btn btn-secondary" id="btn-howto">How To Play</button>
+        <button class="btn btn-icon" id="btn-sound" title="Toggle Sound">Sound</button>
+      </div>
+      <p class="version-text">v1.0.0</p>
+    </div>
+  </div>
+  <div id="countdown-overlay" class="overlay hidden">
+    <div class="countdown-number" id="countdown-number">3</div>
+  </div>
+  <canvas id="game-canvas"></canvas>
+  <div id="hud" class="hidden">
+    <div class="hud-left"><img src="assets/logo/agoyo-logo.png" alt="AGOYO" class="hud-logo" onerror="this.style.display='none'" /></div>
+    <div class="hud-center"><span class="hud-score" id="hud-score">0</span></div>
+    <div class="hud-right"><button class="btn-pause" id="btn-pause" title="Pause (P)">||</button></div>
+  </div>
+  <div id="pause-overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <h2>Paused</h2>
+      <p>Take a sip</p>
+      <button class="btn btn-primary" id="btn-resume">Resume</button>
+      <button class="btn btn-secondary" id="btn-menu-pause">Menu</button>
+    </div>
+  </div>
+  <div id="gameover-screen" class="screen">
+    <div class="gameover-content">
+      <img src="assets/logo/agoyo-logo.png" alt="AGOYO Logo" class="logo-img logo-small" onerror="this.style.display='none'" />
+      <h2 class="gameover-title">Game Over</h2>
+      <div id="new-highscore-banner" class="new-highscore hidden">New High Score!</div>
+      <div class="score-board">
+        <div class="score-row"><span class="score-label">Score</span><span class="score-value" id="go-score">0</span></div>
+        <div class="score-row"><span class="score-label">Best</span><span class="score-value" id="go-best">0</span></div>
+      </div>
+      <div class="gameover-buttons">
+        <button class="btn btn-primary" id="btn-play-again">Play Again</button>
+        <button class="btn btn-secondary" id="btn-menu-go">Menu</button>
+      </div>
+    </div>
+  </div>
+  <div id="highscore-screen" class="screen">
+    <div class="overlay-card">
+      <h2>High Score</h2>
+      <div class="score-board">
+        <div class="score-row"><span class="score-label">All Time Best</span><span class="score-value" id="hs-best">0</span></div>
+        <div class="score-row"><span class="score-label">Games Played</span><span class="score-value" id="hs-games">0</span></div>
+        <div class="score-row"><span class="score-label">Total Score</span><span class="score-value" id="hs-total">0</span></div>
+      </div>
+      <button class="btn btn-secondary" id="btn-hs-back">Back</button>
+    </div>
+  </div>
+  <div id="howto-screen" class="screen">
+    <div class="overlay-card">
+      <h2>How To Play</h2>
+      <ul class="howto-list">
+        <li><strong>Click</strong> or press <strong>Space</strong> to flap</li>
+        <li><strong>Tap</strong> screen on mobile</li>
+        <li>Avoid obstacles and keep flying</li>
+        <li>Score increases per obstacle passed</li>
+        <li>Press <strong>P</strong> to pause</li>
+        <li>Speed increases as you score higher</li>
+      </ul>
+      <button class="btn btn-secondary" id="btn-howto-back">Back</button>
+    </div>
+  </div>
+  <div id="achievement-toast" class="toast hidden"><span id="achievement-text">Achievement Unlocked!</span></div>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/physics.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/obstacle.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
