@@ -258,25 +258,30 @@ class Game {
     Audio$.play('hit');
     this.player.triggerShake();
     this._spawnParticles(this.player.x, this.player.y, 18);
+    cancelAnimationFrame(this._raf);
+    this._raf = null;
 
-    setTimeout(() => { Audio$.play('gameover'); }, 300);
+    setTimeout(() => {
+      Audio$.play('gameover');
+    }, 300);
 
-    // Tampilkan game over setelah delay cukup untuk animasi shake
-    let elapsed = 0;
-    const burst = () => {
+    // Render animasi shake selama 800ms, lalu tampilkan game over
+    const startTime = performance.now();
+    const animateDeath = (now) => {
+      const elapsed = now - startTime;
       this._render(0.016);
-      elapsed += 16;
       if (elapsed < 800) {
-        requestAnimationFrame(burst);
+        requestAnimationFrame(animateDeath);
       } else {
-        cancelAnimationFrame(this._raf);
+        // Hentikan rendering canvas, tampilkan game over
+        this.canvas.style.pointerEvents = 'none';
         const isNew = Storage.updateHighScore(this.score);
         const best = Storage.get('highScore');
         this.ui?.showGameOver(this.score, best, isNew);
         if (isNew) this.ui?.showToast('New High Score! ' + this.score);
       }
     };
-    requestAnimationFrame(burst);
+    requestAnimationFrame(animateDeath);
   }
   _checkAchievements() {
     const milestones = [
@@ -299,6 +304,7 @@ class Game {
   /* ── Public API ─────────────────────────────────────────── */
 
   startGame() {
+    this.canvas.style.pointerEvents = '';
     this.score = 0;
     this.state = STATE.PLAYING;
     this._particles = [];
